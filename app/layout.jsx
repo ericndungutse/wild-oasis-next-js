@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body
-        className={`${josefin.className} antialiased min-h-screen bg-primary-950 text-primary-100 flex flex-col`}
+        className={`${josefin.className} relative antialiased min-h-screen bg-primary-950 text-primary-100 flex flex-col`}
       >
         <Header />
         {/* FLex-1: Take the entire available width */}
