@@ -6,20 +6,21 @@ import {
 } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 
+// NextJs waits for this before streaming the page to the UI
+export async function generateMetadata({ params }) {
+  const { name } = await getCabin(params.cabinId);
+
+  return {
+    title: `Cabin ${name}`,
+  };
+}
+
 export default async function Page({ params }) {
   const cabin = await getCabin(params.cabinId);
 
   if (!cabin) return null;
 
-  const {
-    id,
-    name,
-    maxCapacity,
-    regularPrice,
-    discount,
-    image,
-    description,
-  } = cabin;
+  const { name, maxCapacity, image, description } = cabin;
 
   return (
     <div className='max-w-6xl mx-auto mt-8'>
