@@ -29,8 +29,9 @@ export default function RootLayout({ children }) {
       >
         <Header />
         {/* FLex-1: Take the entire available width */}
-        <div className='flex-1 px-8 py-12 '>
-          <main className='max-w-7xl mx-auto h-full'>
+        {/* Grid makes it take entire remaining v space */}
+        <div className='flex-1 px-8 py-12 grid'>
+          <main className='max-w-7xl mx-auto h-full w-full'>
             {children}
           </main>
         </div>

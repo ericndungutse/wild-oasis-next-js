@@ -1,4 +1,5 @@
 import { eachDayOfInterval } from 'date-fns';
+import { supabase } from './supabase';
 
 /////////////
 // GET
@@ -37,7 +38,9 @@ export async function getCabinPrice(id) {
 export const getCabins = async function () {
   const { data, error } = await supabase
     .from('cabins')
-    .select('id, name, maxCapacity, regularPrice, discount, image')
+    .select(
+      'id, name, maxCapacity, regularPrice, discount, image'
+    )
     .order('name');
 
   if (error) {
@@ -124,7 +127,10 @@ export async function getBookedDatesByCabinId(cabinId) {
 }
 
 export async function getSettings() {
-  const { data, error } = await supabase.from('settings').select('*').single();
+  const { data, error } = await supabase
+    .from('settings')
+    .select('*')
+    .single();
 
   if (error) {
     console.error(error);
@@ -150,7 +156,9 @@ export async function getCountries() {
 // CREATE
 
 export async function createGuest(newGuest) {
-  const { data, error } = await supabase.from('guests').insert([newGuest]);
+  const { data, error } = await supabase
+    .from('guests')
+    .insert([newGuest]);
 
   if (error) {
     console.error(error);
@@ -214,7 +222,10 @@ export async function updateBooking(id, updatedFields) {
 // DELETE
 
 export async function deleteBooking(id) {
-  const { data, error } = await supabase.from('bookings').delete().eq('id', id);
+  const { data, error } = await supabase
+    .from('bookings')
+    .delete()
+    .eq('id', id);
 
   if (error) {
     console.error(error);
