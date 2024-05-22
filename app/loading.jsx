@@ -1,6 +1,7 @@
 import React from 'react';
+import Spinner from './_components/Spinner';
 
 // Activates data to be streamed to the client
 export default function loading() {
-  return <h1 className='text-6xl'>Loading...</h1>;
+  return <Spinner />;
 }
