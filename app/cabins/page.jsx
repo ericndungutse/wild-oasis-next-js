@@ -18,10 +18,13 @@ export default function Page() {
         from home. The perfect spot for a peaceful, calm
         vacation. Welcome to paradise.
       </p>
-
+      {/* <ErrorBoundary
+        error={{ message: 'Error loading the cabins!' }}
+      > */}
       <Suspense fallback={<Spinner />}>
         <CabinList />
       </Suspense>
+      {/* </ErrorBoundary> */}
     </div>
   );
 }
