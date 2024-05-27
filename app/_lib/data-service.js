@@ -115,14 +115,12 @@ export async function getBookedDatesByCabinId(cabinId) {
   }
 
   // Converting to actual dates to be displayed in the date picker
-  const bookedDates = data
-    .map((booking) => {
-      return eachDayOfInterval({
-        start: new Date(booking.startDate),
-        end: new Date(booking.endDate),
-      });
-    })
-    .flat();
+  const bookedDates = data.map((booking) => {
+    return eachDayOfInterval({
+      start: new Date(booking.startDate),
+      end: new Date(booking.endDate),
+    });
+  });
 
   return bookedDates;
 }

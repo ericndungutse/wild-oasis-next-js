@@ -13,12 +13,12 @@ export default function Navigation() {
           </Link>
         </li>
         <li>
-          <a
+          <Link
             href='/about'
             className='hover:text-accent-400 transition-colors'
           >
             About
-          </a>
+          </Link>
         </li>
         <li>
           <Link

@@ -1,8 +1,17 @@
 import { Suspense } from 'react';
 import CabinList from '../_components/CabinList';
 import Spinner from '../_components/Spinner';
+import Filter from '../_components/Filter';
 
-export default function Page() {
+export const metadata = {
+  title: 'Cabins',
+};
+
+// NB: searchParams makes the page dynamic even if we set revalidate
+export default function Page({ searchParams }) {
+  // small, medium, large, all
+  const filter = searchParams?.capacity ?? 'all';
+  console.log('I rerender');
   return (
     <div>
       <h1 className='text-4xl mb-5 text-accent-400 font-medium'>
@@ -21,8 +30,12 @@ export default function Page() {
       {/* <ErrorBoundary
         error={{ message: 'Error loading the cabins!' }}
       > */}
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+
+      <div className='flex justify-end mb-8'>
+        <Filter />
+      </div>
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
       </Suspense>
       {/* </ErrorBoundary> */}
     </div>

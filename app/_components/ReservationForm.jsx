@@ -1,6 +1,6 @@
-function ReservationForm() {
+function ReservationForm({ cabin }) {
   // CHANGE
-  const maxCapacity = 23;
+  const { maxCapacity } = cabin;
 
   return (
     <div className='scale-[1.01]'>
@@ -21,7 +21,9 @@ function ReservationForm() {
 
       <form className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
         <div className='space-y-2'>
-          <label htmlFor='numGuests'>How many guests?</label>
+          <label htmlFor='numGuests'>
+            How many guests?
+          </label>
           <select
             name='numGuests'
             id='numGuests'
@@ -31,7 +33,10 @@ function ReservationForm() {
             <option value='' key=''>
               Select number of guests...
             </option>
-            {Array.from({ length: maxCapacity }, (_, i) => i + 1).map((x) => (
+            {Array.from(
+              { length: maxCapacity },
+              (_, i) => i + 1
+            ).map((x) => (
               <option value={x} key={x}>
                 {x} {x === 1 ? 'guest' : 'guests'}
               </option>
@@ -52,7 +57,9 @@ function ReservationForm() {
         </div>
 
         <div className='flex justify-end items-center gap-6'>
-          <p className='text-primary-300 text-base'>Start by selecting dates</p>
+          <p className='text-primary-300 text-base'>
+            Start by selecting dates
+          </p>
 
           <button className='bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'>
             Reserve now
