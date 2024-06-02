@@ -8,8 +8,18 @@ const authConfig = {
       clientSecret: process.env.AUTH_GOOGLE_SECRET,
     }),
 
+    // FOR CUSTOM PROVIDER
     // CredentialProvider
   ],
+
+  callbacks: {
+    // Return True All False
+    // NextAuth calls this method whenever a user tryies to access route mentioned in middleware
+    authorized({ auth, request }) {
+      // !! Convert any value to a boolean
+      return !!auth?.user;
+    },
+  },
 };
 
 export const {
