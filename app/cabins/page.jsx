@@ -12,7 +12,6 @@ export const metadata = {
 export default function Page({ searchParams }) {
   // small, medium, large, all
   const filter = searchParams?.capacity ?? 'all';
-  console.log('I rerender');
   return (
     <div>
       <h1 className='text-4xl mb-5 text-accent-400 font-medium'>
@@ -28,13 +27,13 @@ export default function Page({ searchParams }) {
         from home. The perfect spot for a peaceful, calm
         vacation. Welcome to paradise.
       </p>
-      {/* <ErrorBoundary
-        error={{ message: 'Error loading the cabins!' }}
-      > */}
 
       <div className='flex justify-end mb-8'>
         <Filter />
       </div>
+      {/* <ErrorBoundary
+        error={{ message: 'Error loading the cabins!' }}
+      > */}
       <Suspense fallback={<Spinner />} key={filter}>
         <ReservationReminder />
         <CabinList filter={filter} />
