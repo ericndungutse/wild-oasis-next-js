@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { auth, signIn, signOut } from './auth';
 import { supabase } from './supabase';
 
@@ -16,7 +17,7 @@ export async function updateGuest(formData) {
     .get('nationality')
     .split('%');
 
-  if (!/^[a-zA-Z0-9]{6,12}$/.test(nationalID))
+  if (!/^[a-zA-Z0-9]{6,16}$/.test(nationalID))
     throw new Error('Invalid national ID');
 
   const updateData = {
@@ -34,6 +35,8 @@ export async function updateGuest(formData) {
     console.error(error);
     throw new Error('Guest could not be updated');
   }
+
+  revalidatePath('/account/profile');
 }
 
 export async function signInAction() {
