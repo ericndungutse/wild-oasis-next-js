@@ -39,6 +39,23 @@ export async function updateGuest(formData) {
   revalidatePath('/account/profile');
 }
 
+export async function deleteResevation(bookingId) {
+  const session = await auth();
+
+  if (!session) throw new Error('Not authenticated');
+
+  const { data, error } = await supabase
+    .from('bookings')
+    .delete()
+    .eq('id', bookingId);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be deleted');
+  }
+  revalidatePath('/account/reservations');
+}
+
 export async function signInAction() {
   // Could also get form /api/providers
   await signIn('google', { redirectTo: '/account' });
