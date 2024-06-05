@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { auth, signIn, signOut } from './auth';
 import { supabase } from './supabase';
+import { redirect } from 'next/navigation';
 
 // NB: Great not to use try catch here, so we can handle errors in the UI(Throu closest error boundary) i.e: Error.js
 export async function updateGuest(formData) {
@@ -63,4 +64,31 @@ export async function signInAction() {
 
 export async function signOutAction() {
   await signOut({ redirectTo: '/' });
+}
+
+export async function updateBooking(formData) {
+  const session = await auth();
+
+  if (!session) {
+    throw new Error('Not authenticated');
+  }
+
+  const bookingId = +formData.get('bookingId');
+  const updatedFields = {
+    numGuests: +formData.get('numGuests'),
+    observations: formData.get('observations'),
+  };
+
+  const { data, error } = await supabase
+    .from('bookings')
+    .update(updatedFields)
+    .eq('id', bookingId);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Booking could not be updated');
+  }
+
+  revalidatePath(`/account/reservations/edit/${bookingId}`);
+  redirect('/account/reservations');
 }
