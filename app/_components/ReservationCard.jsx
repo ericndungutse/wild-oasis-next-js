@@ -6,9 +6,9 @@ import {
   isToday,
   parseISO,
 } from 'date-fns';
-import DeleteReservation from '../../starter/components/DeleteReservation';
 import Image from 'next/image';
 import Link from 'next/link';
+import DeleteReservation from './DeleteReservation';
 
 export const formatDistanceFromNow = (dateStr) =>
   formatDistance(parseISO(dateStr), new Date(), {

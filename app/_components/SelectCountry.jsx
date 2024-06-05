@@ -12,7 +12,7 @@ async function SelectCountry({
 
   const flag =
     countries.find(
-      (country) => country.country === defaultCountry
+      (country) => country.name === defaultCountry
     )?.flag ?? '';
 
   return (
@@ -25,11 +25,8 @@ async function SelectCountry({
     >
       <option value=''>Select country...</option>
       {countries.map((c) => (
-        <option
-          key={c.country}
-          value={`${c.country}%${c.flag}`}
-        >
-          {c.country}
+        <option key={c.name} value={`${c.name}%${c.flag}`}>
+          {c.name}
         </option>
       ))}
     </select>

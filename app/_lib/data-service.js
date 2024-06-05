@@ -140,15 +140,16 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      'http://localhost:3000/countries'
-    );
     // const res = await fetch(
-    //   'https://restcountries.com/v2/all?fields=name,flag'
+    //   'http://localhost:3000/countries'
     // );
-    const countries = await res.json();
-    return countries;
-  } catch {
+    const res = await fetch(
+      'https://restcountries.com/v2/all?fields=name,flag'
+    );
+
+    // const countries = await res.json();
+    return await res.json();
+  } catch (error) {
     throw new Error('Could not fetch countries');
   }
 }
