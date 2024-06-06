@@ -121,7 +121,7 @@ export async function getBookedDatesByCabinId(cabinId) {
     });
   });
 
-  return bookedDates;
+  return bookedDates[0];
 }
 
 export async function getSettings() {

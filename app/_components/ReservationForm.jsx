@@ -1,12 +1,34 @@
 'use client';
 
+import { differenceInDays } from 'date-fns';
 import { useReservation } from './ReservationContext';
+import { createReservation } from '../_lib/actions';
+import SubmitButton from './SubmitButton';
 
 function ReservationForm({ cabin, user }) {
-  console.log(user);
-  const { range } = useReservation();
-  // CHANGE
-  const { maxCapacity } = cabin;
+  const { range, resetRange } = useReservation();
+
+  const { maxCapacity, regularPrice, discount, id } = cabin;
+
+  const startDate = range.from;
+  const endDate = range.to;
+
+  const numNights = differenceInDays(endDate, startDate);
+  const cabinPrice = numNights * (regularPrice - discount);
+
+  const reservationData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinId: id,
+  };
+
+  // New createReservation function with reservationData bound to it
+  const createReservationWithData = createReservation.bind(
+    null,
+    reservationData
+  );
 
   return (
     <div className='scale-[1.01]'>
@@ -25,7 +47,14 @@ function ReservationForm({ cabin, user }) {
         </div>
       </div>
 
-      <form className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
+      <form
+        action={async (formData) => {
+          await createReservationWithData(formData);
+          alert('Reservation created');
+          resetRange();
+        }}
+        className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'
+      >
         <div className='space-y-2'>
           <label htmlFor='numGuests'>
             How many guests?
@@ -67,9 +96,9 @@ function ReservationForm({ cabin, user }) {
             Start by selecting dates
           </p>
 
-          <button className='bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'>
+          <SubmitButton pendingText='Processing'>
             Reserve now
-          </button>
+          </SubmitButton>
         </div>
       </form>
     </div>
