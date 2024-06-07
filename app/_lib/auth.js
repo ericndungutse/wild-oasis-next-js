@@ -16,6 +16,7 @@ const authConfig = {
   callbacks: {
     // Return True All False
     // NextAuth calls this method whenever a user tryies to access route mentioned in middleware
+    // CHecks for Authorized user hence ?callback set in provider above
     authorized({ auth, request }) {
       // !! Convert any value to a boolean
       return !!auth?.user;
@@ -49,6 +50,7 @@ const authConfig = {
       return session;
     },
   },
+  // When Authorized returns false, go the the oage mentioned
   pages: {
     signIn: 'login',
   },
