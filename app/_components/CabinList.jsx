@@ -51,9 +51,9 @@ const getCabins = async function () {
   const res = await fetch('/api/cabins', {
     cache: 'no-store',
   });
+
   const cabins = await res.json();
 
-  console.log(cabins);
   return cabins;
 };
 
